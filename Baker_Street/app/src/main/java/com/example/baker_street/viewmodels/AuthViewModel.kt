@@ -19,7 +19,7 @@ class AuthViewModel : ViewModel(){
         return message
     }
 
-    fun signInUser(userModel: UserModel,jwtToken : String) {
-        repo?.signIn(userModel, jwtToken)
+    fun signUpUser(userModel: UserModel,jwtToken : String) {
+        repo?.signUp(userModel, jwtToken)
     }
 }

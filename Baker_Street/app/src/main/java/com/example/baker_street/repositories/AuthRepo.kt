@@ -1,5 +1,6 @@
 package com.example.baker_street.repositories
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.baker_street.RetroInstance
 import com.example.baker_street.models.UserModel
@@ -19,17 +20,25 @@ class AuthRepo {
         return instance
     }
 
-    fun signIn(userModel : UserModel,jwtToken : String) {
+    fun signUp(userModel : UserModel,jwtToken : String) {
         GlobalScope.launch {
-            RetroInstance.api.signUp(userModel, jwtToken)
+            RetroInstance.api.signUp(userModel)
                 .enqueue(object : Callback<UserModel> {
                     override fun onResponse(
                         call: Call<UserModel>,
                         response: Response<UserModel>
                     ) {
+                        try {
+                            Log.d("NIK","OK")
+
+                        } catch (E :Exception)
+                        {
+                            Log.d("NIK","Error")
+                        }
                         //try catch
                     }
                     override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                        Log.d("NIK",t.toString())
 
                     }
                 })
