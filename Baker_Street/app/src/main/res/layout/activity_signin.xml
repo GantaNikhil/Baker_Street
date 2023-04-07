@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".activity_signin">
+    tools:context=".activities.SignInActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 android:textSize="16sp" />
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
