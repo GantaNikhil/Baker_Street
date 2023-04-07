@@ -10,6 +10,7 @@ data class UserModel(
 
     var password: String? = null,
 
-    var jwtToken: String? = null
+    var jwtToken: String? = null,
 
+    var status: String ? =null
 )

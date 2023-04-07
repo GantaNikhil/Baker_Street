@@ -1,48 +1,55 @@
 package com.example.baker_street.activities
 
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.baker_street.R
+import com.example.baker_street.models.UserModel
+import com.example.baker_street.viewmodels.AuthViewModel
 
 class SignInActivity : AppCompatActivity() {
 
-    val signupviewmodel = ViewModelProvider(this)[SignUpViewModel::class.java]
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_signin)
 
-    signupviewmodel.getMessageObserver()?.observe(this,
-    object : Observer<ResponseItem?> {
-        override fun onChanged(it: ResponseItem?) {
-            if (it?.status == "201") {
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Successfully Registered",
-                    Toast.LENGTH_SHORT
-                ).show()
+        val signinviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
 
-                val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-                overridePendingTransition(R.anim.from_left, R.anim.to_right)
-                finish()
-            } else if (it == "100") {
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "User already exists!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Check your Internet Connection!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            dialog.dismiss()
+        signinviewmodel.getMessageObserver()?.observe(this,
+            object : Observer<UserModel?> {
+                override fun onChanged(it: UserModel?) {
+                    if (it?.status == "201") {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "Successfully Registered",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                        finish()
+                    } else if (it == "100") {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "User already exists!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "Check your Internet Connection!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            })
+
+        signup.setOnClickListener{
+
         }
-    })
-
-    signup.setOnClickListener(View.OnClickListener
-
-    })
+    }
 }
