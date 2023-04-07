@@ -14,16 +14,16 @@
         android:theme="@style/Theme.Baker_Street"
         tools:targetApi="31">
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_forgotpassword"
+            android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_signin"
+            android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_signup"
+            android:name=".activities.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

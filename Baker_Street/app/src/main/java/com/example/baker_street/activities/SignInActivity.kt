@@ -22,8 +22,8 @@ class SignInActivity : AppCompatActivity() {
 
         }
 
-        signup.setOnClickListener{
-
-        }
+//        signup.setOnClickListener{
+//
+//        }
     }
 }
