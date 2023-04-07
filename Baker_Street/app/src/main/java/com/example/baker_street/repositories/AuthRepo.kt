@@ -19,7 +19,6 @@ class AuthRepo {
         instance = AuthRepo()
         return instance
     }
-
     fun signUp(userModel : UserModel,jwtToken : String) {
         GlobalScope.launch {
             RetroInstance.api.signUp(userModel)
@@ -35,11 +34,9 @@ class AuthRepo {
                         {
                             Log.d("NIK","Error")
                         }
-                        //try catch
                     }
                     override fun onFailure(call: Call<UserModel>, t: Throwable) {
                         Log.d("NIK",t.toString())
-
                     }
                 })
         }
