@@ -11,6 +11,8 @@ const isLoggedin= (req,res,next)=>{
             const user=jwt.verify(token,key);
             req.firebaseuserid=user.firebaseuserid;
             req.email=user.email;
+            req.role=user.role
+            console.log(req.role)
             next();
         }
         else{
