@@ -1,55 +1,42 @@
 package com.example.baker_street.repositories
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.baker_street.RetroInstance
+import com.example.baker_street.models.UserModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AuthRepo {
 
     private lateinit var instance: AuthRepo
-    private val message = MutableLiveData<ResponseItem>()
+    private val message = MutableLiveData<String>()
 
     fun getInstance(): AuthRepo {
         instance = AuthRepo()
         return instance
     }
 
-    fun authenticate(email: String, password: String,clicked:Int, context: Context) {
+    fun signIn(userModel : UserModel,jwtToken : String) {
         GlobalScope.launch {
-            RetroInstance.api.PostSignUp(SignUpItem(email, password, clicked))
-                .enqueue(object : Callback<ResponseItem> {
+            RetroInstance.api.signUp(userModel, jwtToken)
+                .enqueue(object : Callback<UserModel> {
                     override fun onResponse(
-                        call: Call<ResponseItem>,
-                        response: Response<ResponseItem>
+                        call: Call<UserModel>,
+                        response: Response<UserModel>
                     ) {
-                        try {
-                            val sharedpref =context.getSharedPreferences("token", Context.MODE_PRIVATE)
-                            val editor = sharedpref.edit()
-
-                            editor.putString("token", response.body()!!.token)
-                            editor.commit()
-
-                            message.postValue(response.body())
-                            Log.d("signupmessage", response.body().toString())
-
-//                            response.errorBody()?.let { Log.e("error", it.string()) }
-                        } catch (e: Exception) {
-//                            message.postValue("100")
-                            e.printStackTrace()
-                        }
-
+                        //try catch
                     }
-                    override fun onFailure(call: Call<ResponseItem>, t: Throwable) {
-//                        message.postValue(t.message)
-                        Log.d("message", t.toString())
+                    override fun onFailure(call: Call<UserModel>, t: Throwable) {
+
                     }
                 })
         }
     }
 
-    fun getMessage(): MutableLiveData<ResponseItem> {
-        return message;
+    fun getMessage(): MutableLiveData<String> {
+        return message
     }
 }
