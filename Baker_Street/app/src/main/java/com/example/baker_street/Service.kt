@@ -1,6 +1,7 @@
 package com.example.baker_street
 
 import com.example.baker_street.models.AnnouncementsModel
+import com.example.baker_street.models.CommentsModel
 import com.example.baker_street.models.CoursesModel
 import com.example.baker_street.models.UserModel
 import retrofit2.Call
@@ -44,7 +45,7 @@ interface Service {
         @Header("Authorization") jwtToken: String,
         @Path("sourceid") sourceid: Any,
         @Path("sourcetype") sourcetype: String
-    )
+    ) :Call<CommentsModel>
 
     @GET("courses/materials/{courseid}")
     fun getMaterials(

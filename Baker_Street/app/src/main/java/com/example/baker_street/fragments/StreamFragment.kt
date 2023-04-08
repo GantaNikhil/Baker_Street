@@ -3,6 +3,7 @@ package com.example.baker_street.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,8 @@ class StreamFragment(var courseid: String) : Fragment(),
         adapter = StreamFragmentAdapter()
         binding.revAnnouncements.adapter = adapter
 
+        adapter.setOnAnnouncementListener(this)
+
         initObservers()
 
         return binding.root
@@ -67,5 +70,4 @@ class StreamFragment(var courseid: String) : Fragment(),
         intent.putExtra("Announcement",announcementsList[pos] as Serializable)
         startActivity(intent)
     }
-
 }
