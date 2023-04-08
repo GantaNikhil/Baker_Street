@@ -18,8 +18,23 @@ const getCourses= async (req,res)=>{
             }
         }
     ]).toArray()
-    res.status(200).json({"courses":courses})
+    return res.status(200).json({"courses":courses})
     
+}
+
+//get the courses that student has registered in
+const getMyCourses= async (req,res)=>{
+    const id=req.firebaseuserid
+    const courses=await _db.collection('courses').aggregate([
+        {
+            $match:{
+                $expr:{
+                    $in:[id,"$students"]
+                }
+            }
+        }
+    ]).toArray()
+    return res.status(200).json({courses})
 }
 
 const createCourse = async (req,res)=>{
@@ -40,7 +55,7 @@ const createCourse = async (req,res)=>{
     await _db.collection('users').updateOne({userid:profid},
         {$push:{courses: course_id}}
     )
-    res.status(200).json({"message":"Course Created"})
+    return res.status(200).json({"message":"Course Created"})
 }
 
 const deleteCourse= async (req,res)=>{
@@ -52,7 +67,7 @@ const deleteCourse= async (req,res)=>{
     )
     //we need to delete the registrations of students for this course
     //from the registrations collection
-    res.status(200).json({"message":"course deleted"})
+    return res.status(200).json({"message":"course deleted"})
 
 }
 
@@ -98,10 +113,17 @@ const uploadAssignments = async (req,res)=>{
     await _db.collection('assignments').insertOne(newElement);
     return res.status(200).json({message:"Assignment uploaded"})
 }
+
+const getAnnouncements = async (req,res)=>{
+    const courseid = new ObjectId(req.body.courseid);
+    const announcements=await _db.collection('announcements').find({courseid:courseid}).toArray()
+    return res.status(200).json({announcements:announcements})
+}
 const UploadAnnouncement = async (req,res) =>{
     const courseid = new ObjectId(req.body.courseid);
+    const text=req.body.description
     const obj = {
-        courseid,createdAt:new Date(),text:req.body.description
+        courseid,createdAt:new Date(),text
     };
     await _db.collection('announcements').insertOne(obj);
     return res.status(200).json({message:"Announcement Posted"});
@@ -146,7 +168,7 @@ const gradeAssignment= async (req,res)=>{
     {
         $set:{grade:grade,feedback:feedback}
     })
-    res.status(200).json({"message":"Assignment graded"})
+    return res.status(200).json({"message":"Assignment graded"})
 }
 
 const getAllSubmissions = async (req,res) =>{
@@ -158,13 +180,17 @@ const getAllSubmissions = async (req,res) =>{
 
 const getAllAssignments = async (req,res) =>{
     const courseid = new ObjectId(req.body.courseid);
-    const assignments = await _db.collection('assignments').aggregate({courseid:courseid});
-    return res.status(200).json({content:assignments});
+    const assignments = await _db.collection('assignments').aggregate([
+        {
+            $match:{courseid:courseid}
+        }
+    ]).toArray();
+    return res.status(200).json({assignments:assignments});
 }
 const getAllMaterials = async (req,res) =>{
     const courseid  = new ObjectId(req.body.courseid);
     const courseDetails = await _db.collection('courses').findOne({_id:courseid});
-     return res.status(200).json({content:courseDetails.materials});
+     return res.status(200).json({materials:courseDetails.materials});
 }
 const Comments = async (req,res) =>{
     const sourceid = new ObjectId(req.body.sourceid);
@@ -172,9 +198,10 @@ const Comments = async (req,res) =>{
     const sourcetype = req.body.sourcetype;
     // source id is for which material or which assignment the comment was made for
     // publisher_id is who commented
+    const text=req.body.comment
     const comment = {
         publisher_id : req.firebaseuserid,
-        text: req.body.comment,
+        text,
         modified:new Date(),
         sourceid,
         sourcetype
@@ -188,12 +215,22 @@ const DeleteComments = async (req,res) =>{
     return res.status(200).json({message:"Comment Deleted Successfully"});
 }
 const UpdateComments = async (req,res) =>{
-           const commentid = new ObjectId(req.body.commentid);
-           const text = req.body.comment;
-           await _db.collection('comments').updateOne({_id:commentid},
-            {$set:{text:text,modified:new Date()}}
-            );
-            return res.status(200).json({message:"Comment Updated Successfully"});
+        const commentid = new ObjectId(req.body.commentid);
+        const text = req.body.comment;
+        await _db.collection('comments').updateOne({_id:commentid},
+        {$set:{text:text,modified:new Date()}}
+        );
+        
+        
+        return res.status(200).json({message:"Comment Updated Successfully"});
+}
+
+const getComments=async (req,res)=>{
+    const sourceid=new ObjectId(req.body.sourceid)
+    const sourcetype=req.body.sourcetype
+
+    const comments=await _db.collection('comments').find({sourceid:sourceid,sourcetype:sourcetype}).toArray()
+    return res.status(200).json({"comments":comments})
 }
 
 const registerStudents= async (req,res)=>{
@@ -209,9 +246,9 @@ const registerStudents= async (req,res)=>{
     await _db.collection('courses').updateOne({_id:courseid},{
         $push:{ students: { $each: userids}}
     },{upsert:true})
-    res.status(200).json({"message":"All the students are registered"})
+    return res.status(200).json({"message":"All the students are registered"})
 }
 
 module.exports={createCourse,UploadAnnouncement,DeleteAnnouncement,getCourses,deleteCourse,DeleteComments,
     uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment,Comments,getAllAssignments,getAllSubmissions,
-    getAllMaterials,UpdateComments,registerStudents}
+    getAllMaterials,UpdateComments,registerStudents,getComments,getMyCourses,getAnnouncements}
