@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.example.baker_street.databinding.FragmentCoursesBinding
+import com.example.baker_street.R
 import com.example.baker_street.databinding.FragmentProfileBinding
 
-class CoursesFragment : Fragment(){
-    private lateinit var binding: FragmentCoursesBinding
+class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCoursesBinding.inflate(layoutInflater)
+        binding = FragmentProfileBinding.inflate(layoutInflater)
 
         return binding.root
     }

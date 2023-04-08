@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    tools:context=".activities.ProfileActivity">
+    android:layout_width="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +13,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".dashboard.ui.notifications.ProfileFragment">
-
 
         <TextView
             android:id="@+id/textView"

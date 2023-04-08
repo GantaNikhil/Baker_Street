@@ -7,7 +7,7 @@ import com.example.baker_street.R
 class SplashActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.fragment_profile)
     }
 
 
