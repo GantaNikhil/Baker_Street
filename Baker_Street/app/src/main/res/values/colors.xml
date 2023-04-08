@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_color">#123123</color>
     <color name="subhead">#FFFFFF</color>
+    <color name="yellow">#FFBA4F</color>
+    <color name="violet">#473262</color>
+    <color name="lightViolet">#4e426f</color>
     <color name="card_background">#4EC3CC</color>
+    <color name="darkwhite">#FF8375AA</color>
 </resources>

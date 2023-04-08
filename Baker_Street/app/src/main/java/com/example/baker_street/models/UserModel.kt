@@ -22,3 +22,4 @@ data class UserModel(
     @SerializedName("message")
     val message: String? = null,
 )
+

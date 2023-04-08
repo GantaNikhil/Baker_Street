@@ -60,11 +60,11 @@ class SignInActivity : AppCompatActivity() {
         signinviewmodel.getMessageObserver()?.observe(this) { it ->
             if (it == "OK3") {
                 signinviewmodel.getSignInObserver()?.observe(this) {
+                    Log.d("Vishnu", it.toString())
                     val sharedPreferences = getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
                     val editor = sharedPreferences?.edit()
                     editor?.putString("jwtToken", it.jwtToken)
                     editor?.apply()
-                    Log.d("Vishnu", it.toString())
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@SignInActivity, MainActivity::class.java)
                     startActivity(intent)
