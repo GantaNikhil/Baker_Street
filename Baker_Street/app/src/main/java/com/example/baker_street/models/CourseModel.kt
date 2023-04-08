@@ -20,6 +20,8 @@ data class CourseModel(
 
     val profid: String? = null,
 
+    val profname: String? = null,
+
     val materials: ArrayList<MaterialsModel>? = null,
 )
 
