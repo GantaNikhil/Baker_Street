@@ -3,6 +3,7 @@ package com.example.baker_street.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.baker_street.R
 import com.example.baker_street.fragments.CoursesFragment
@@ -14,15 +15,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         bottomNav = findViewById(R.id.bottom_nav)
+        supportActionBar?.title = "Courses"
         loadFragment(CoursesFragment())
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
+                    supportActionBar?.setTitle("Courses")
                     loadFragment(CoursesFragment())
                     true
                 }
                 R.id.navigation_profile -> {
+                    supportActionBar?.setTitle("Profile")
                     loadFragment(ProfileFragment())
                     true
                 }

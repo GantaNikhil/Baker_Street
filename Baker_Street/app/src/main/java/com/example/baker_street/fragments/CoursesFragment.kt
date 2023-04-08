@@ -33,6 +33,7 @@ class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
         binding.recyclerView.setHasFixedSize(true)
         binding.swipeRefresh.setOnRefreshListener(this)
 
+
         viewModel = ViewModelProvider(this)[CourseViewModel::class.java]
         val sharedPreferences = context?.getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
         token = sharedPreferences?.getString("jwtToken", "").toString()
@@ -65,6 +66,12 @@ class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
 
     override fun onRefresh() {
         viewModel.getCourses(token)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Update the activity's title for this fragment
+        activity?.title = "Courses"
     }
 
     override fun onCourseClick(pos: Int) {

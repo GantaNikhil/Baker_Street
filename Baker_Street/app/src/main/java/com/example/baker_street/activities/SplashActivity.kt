@@ -1,33 +1,37 @@
 package com.example.baker_street.activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.baker_street.R
-import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
     private val SPLASH_TIME_OUT = 800
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(com.example.baker_street.R.layout.activity_splash)
 
-        val sharedPreferences = getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("jwtToken","")
-//        token?.let { Log.d("NIKHIL", it) }
-        if(token != "") {
-            val intent = Intent(this@SplashActivity,MainActivity::class.java)
-            startActivity(intent)
+        val circle = findViewById<ImageView>(R.id.circle)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.circle_animation)
+
+        Handler().postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
-        } else {
-            Handler().postDelayed({
-                startActivity(Intent(this, SignInActivity::class.java))
-                finish()
-            }, SPLASH_TIME_OUT.toLong())
-        }
+        }, 2000)
+
+        circle.startAnimation(animation)
+
     }
 }
+
+//circle = findViewById<ImageView>(com.example.baker_street.R.id.circle)
+//val animation: Animation = AnimationUtils.loadAnimation(this, com.example.baker_street.R.anim.circle_animation)
+//circle.startAnimation(animation)
+//Handler().postDelayed({
+//    startActivity(Intent(this, SignInActivity::class.java))
+//    finish()
+//}, SPLASH_TIME_OUT.toLong())

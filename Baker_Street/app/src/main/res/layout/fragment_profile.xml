@@ -12,39 +12,28 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".dashboard.ui.notifications.ProfileFragment">
+        app:layout_constraintVertical_bias="0.119"
+        tools:context=".dashboard.ui.notifications.ProfileFragment"
+        tools:layout_editor_absoluteX="0dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/montserrat"
-            android:text="PROFILE"
-            android:textColor="#6765E8"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="56dp"
             app:cardCornerRadius="100dp"
-            app:cardElevation="10dp"
+            app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <ImageView
                 android:id="@+id/profilephoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:src="@drawable/profiledummy" />
 
 
         </androidx.cardview.widget.CardView>
@@ -54,8 +43,8 @@
             android:id="@+id/disp_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tarunstu125"
             android:padding="8dp"
+            android:text="tarunstu125"
             android:textColor="#353535"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/disp_name"
@@ -98,11 +87,11 @@
             app:layout_constraintTop_toTopOf="@+id/textView9" />
 
         <TextView
-            android:id="@+id/disp_mobile"
+            android:id="@+id/disp_username2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="+91 7441147546"
+            android:text="tarunstu125"
             android:textColor="@color/text_color"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/disp_email"
@@ -116,21 +105,9 @@
             android:text="Student"
             android:textColor="@color/text_color"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/disp_mobile"
-            app:layout_constraintTop_toBottomOf="@+id/disp_mobile" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/disp_username2" />
 
-        <TextView
-            android:id="@+id/disp_address"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="9"
-            android:text="Holi Pura Toriya Khati Baba Mandir k pass Datia, Madhaya Pradesh"
-            android:textColor="@color/text_color"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/disp_occupation"
-            app:layout_constraintStart_toStartOf="@+id/disp_email"
-            app:layout_constraintTop_toBottomOf="@+id/disp_occupation" />
 
         <TextView
             android:id="@+id/textView9"
@@ -144,65 +121,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="Mobile"
-            android:textColor="@color/subhead"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/disp_mobile" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="Address"
-            android:textColor="@color/subhead"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/disp_address" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="Occupation"
-            android:textColor="@color/subhead"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/disp_occupation" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/edit"
-            android:layout_width="300dp"
+            android:layout_width="30dp"
             android:layout_height="51dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="5dp"
-            android:elevation="10dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Edit"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/editicon"
+            app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/disp_address"
-            app:layout_constraintVertical_bias="0.21" />
+            app:layout_constraintHorizontal_bias="0.931"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signOut"
             android:layout_width="300dp"
             android:layout_height="51dp"
             android:layout_marginTop="25dp"
+            android:backgroundTint="@color/violet"
             android:elevation="10dp"
-            android:fontFamily="@font/montserrat"
             android:text="SignOut"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -210,7 +145,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit" />
+            app:layout_constraintTop_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

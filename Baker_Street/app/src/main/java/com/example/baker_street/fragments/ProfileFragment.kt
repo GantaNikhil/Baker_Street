@@ -20,7 +20,6 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
-
         binding.signOut.setOnClickListener {
             val sharedPreferences = context?.getSharedPreferences("Baker_Street",Context.MODE_PRIVATE)
             val editor = sharedPreferences?.edit()
@@ -30,5 +29,10 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
         return binding.root
+    }
+    override fun onResume() {
+        super.onResume()
+        // Update the activity's title for this fragment
+        activity?.title = "Profile"
     }
 }
