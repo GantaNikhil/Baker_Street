@@ -12,7 +12,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-       android:background="@drawable/card_background"
         android:backgroundTint="@color/violet"
         app:cardElevation="50dp"
         app:layout_constraintBottom_toBottomOf="parent"

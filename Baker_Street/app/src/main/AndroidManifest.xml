@@ -49,6 +49,7 @@
             android:name=".activities.MainActivity"
             android:exported="false" />
         <activity android:name=".activities.ClassroomActivity"/>
+        <activity android:name=".activities.SubAnnouncementActivity"/>
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true">

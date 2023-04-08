@@ -1,7 +1,14 @@
 package com.example.baker_street.models
 
 import com.google.gson.annotations.SerializedName
-import java.util.Objects
+
+data class CoursesModel(
+
+    val status: String? = null,
+
+    @SerializedName("courses")
+    val courses: ArrayList<CourseModel>? = null
+)
 
 data class CourseModel(
 
@@ -13,13 +20,6 @@ data class CourseModel(
 
     val profid: String? = null,
 
-    val materials: ArrayList<Any>? = null,
+    val materials: ArrayList<MaterialsModel>? = null,
 )
 
-data class CoursesModel(
-
-    val status: String? = null,
-
-    @SerializedName("courses")
-    val courses: ArrayList<CourseModel>? = null
-)

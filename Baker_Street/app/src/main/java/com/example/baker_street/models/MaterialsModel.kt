@@ -6,3 +6,11 @@ package com.example.baker_street.models
 //    val file :
 //            val materials : ArrayList<String>
 //    )
+
+data class MaterialModel(
+    val url: String? = null,
+)
+
+data class MaterialsModel(
+    val materials: ArrayList<MaterialModel>? = null
+)
