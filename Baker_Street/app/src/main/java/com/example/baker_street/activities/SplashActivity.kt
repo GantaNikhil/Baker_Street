@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
 //        }, 2000)
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
             finish()
         }, SPLASH_TIME_OUT.toLong())
     }
