@@ -2,46 +2,52 @@ package com.example.baker_street.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.baker_street.R
+import androidx.viewpager2.widget.ViewPager2
+import com.example.baker_street.adapters.SectionsPagerAdapter
 import com.example.baker_street.databinding.ActivitySignupBinding
+import com.example.baker_street.fragments.SignUpFragment
 import com.example.baker_street.models.UserModel
 import com.example.baker_street.viewmodels.AuthViewModel
+import com.google.android.material.tabs.TabLayout
 
-class SignUpActivity :AppCompatActivity(){
+class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var email:EditText
-    private lateinit var password:EditText
-    private lateinit var cnfpassword:EditText
-    private lateinit var signupviewmodel:AuthViewModel
     private lateinit var binding: ActivitySignupBinding
+    private lateinit var adapter: SectionsPagerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-         email = binding.txtEEmail
-         password = binding.txtEPassword
-         cnfpassword = binding.txtEConfirmPassword
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText("Student")
+        )
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText("Professor")
+        )
+        adapter = SectionsPagerAdapter(supportFragmentManager, lifecycle)
+        binding.viewPager.adapter = adapter
 
-         signupviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                binding.viewPager.currentItem = tab.position
+            }
 
-        binding.btnSignUp.setOnClickListener {
-            signupviewmodel.signUpUser(UserModel(email.text.toString(), password.text.toString(),cnfpassword.text.toString()),"")
-        }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-        binding.goToLogin.setOnClickListener{
-            val toSignIn = Intent(this,SignInActivity::class.java)
-            startActivity(toSignIn)
-        }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
 
-        signupviewmodel.getMessageObserver()?.observe(this){
-            Log.d("NIK",it.toString())
-        }
-
+        })
+        binding.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
+            }
+        })
     }
 }

@@ -69,7 +69,7 @@ const uploadMaterials = async (req,res)=>{
     const publicURL=`https://storage.googleapis.com/${output[0].metadata.bucket}/${req.file.filename}`
     const newElement={
         url:publicURL,
-        createdAt:new Date()
+        createdAt:new Date(),
     }
     await _db.collection('courses').updateOne({_id:courseid},{
         $push:{ materials: newElement}
@@ -98,10 +98,24 @@ const uploadAssignments = async (req,res)=>{
     await _db.collection('assignments').insertOne(newElement);
     return res.status(200).json({message:"Assignment uploaded"})
 }
+const UploadAnnouncement = async (req,res) =>{
+    const courseid = new ObjectId(req.body.courseid);
+    const obj = {
+        courseid,createdAt:new Date(),text:req.body.description
+    };
+    await _db.collection('announcements').insertOne(obj);
+    return res.status(200).json({message:"Announcement Posted"});
+}
+const DeleteAnnouncement = async (req,res)=>{
+    const announcementId = new ObjectId(req.body.announcementid);
+    console.log(announcementId);
+    await _db.collection('announcements').deleteOne({_id:announcementId});
+    return res.status(200).json({message:"Announcement Deleted"});
+}
 
 const submitAssignments= async (req,res)=>{
     const courseid=new ObjectId(req.body.courseid)
-    const assigmentid=new ObjectId(req.body.assigmentid)
+    const assignmentid=new ObjectId(req.body.assignmentid)
     if(!req.file){
         throw new ExpressError("Missing file to submit",501);
     }
@@ -113,7 +127,7 @@ const submitAssignments= async (req,res)=>{
     const publicURL=`https://storage.googleapis.com/${output[0].metadata.bucket}/${req.file.filename}`
     const newElement={
         url:publicURL,
-        assigmentid,
+        assignmentid,
         courseid,
         createdAt:new Date()
     }
@@ -127,10 +141,59 @@ const submitAssignments= async (req,res)=>{
 const gradeAssignment= async (req,res)=>{
     const submissionid=new ObjectId(req.body.submissionid)
     const grade=req.body.grade
+    const feedback = req.body.feedback
     await _db.collection('submissions').updateOne({_id:submissionid},
     {
-        $set:{grade:grade}
+        $set:{grade:grade,feedback:feedback}
     })
     res.status(200).json({"message":"Assignment graded"})
 }
-module.exports={createCourse,getCourses,deleteCourse,uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment}
+
+const getAllSubmissions = async (req,res) =>{
+    const assignmentid = new ObjectId(req.body.assignmentid);
+    const submissions = await _db.collection('submissions').aggregate([{$match:{assignmentid:assignmentid}}]
+    ).toArray();
+    return res.status(200).json({content:submissions});
+}
+
+const getAllAssignments = async (req,res) =>{
+    const courseid = new ObjectId(req.body.courseid);
+    const assignments = await _db.collection('assignments').aggregate({courseid:courseid});
+    return res.status(200).json({content:assignments});
+}
+const getAllMaterials = async (req,res) =>{
+    const courseid  = new ObjectId(req.body.courseid);
+    const courseDetails = await _db.collection('courses').findOne({_id:courseid});
+     return res.status(200).json({content:courseDetails.materials});
+}
+const Comments = async (req,res) =>{
+    const sourceid = new ObjectId(req.body.sourceid);
+    // which source type is comment e.g : whether the comment is for assignment, announcement?
+    const sourcetype = req.body.sourcetype;
+    // source id is for which material or which assignment the comment was made for
+    // publisher_id is who commented
+    const comment = {
+        publisher_id : req.firebaseuserid,
+        text: req.body.comment,
+        modified:new Date(),
+        sourceid,
+        sourcetype
+    }
+    await _db.collection('comments').insertOne(comment);
+    return res.status(200).json({message:"Successfully Commented"});
+}
+const DeleteComments = async (req,res) =>{
+    const commentid = new ObjectId(req.body.commentid);
+    await _db.collection('comments').deleteOne({_id:commentid});
+    return res.status(200).json({message:"Comment Deleted Successfully"});
+}
+const UpdateComments = async (req,res) =>{
+           const commentid = new ObjectId(req.body.commentid);
+           const text = req.body.comment;
+           await _db.collection('comments').updateOne({_id:commentid},
+            {$set:{text:text,modified:new Date()}}
+            );
+            return res.status(200).json({message:"Comment Updated Successfully"});
+}
+
+module.exports={createCourse,UploadAnnouncement,DeleteAnnouncement,getCourses,deleteCourse,DeleteComments,uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment,Comments,getAllAssignments,getAllSubmissions,getAllMaterials,UpdateComments}
