@@ -2,7 +2,7 @@ package com.example.baker_street.models
 
 data class UserModel(
 
-    var name: String? = null,
+    var username: String? = null,
 
     var email: String? = null,
 

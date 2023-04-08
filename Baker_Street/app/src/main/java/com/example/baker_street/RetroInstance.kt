@@ -15,7 +15,7 @@ object RetroInstance {
     }.build()
 
 
-    private const val URL: String = "" //TODO add url
+    private const val URL: String = "http://127.0.0.1:3000/" //TODO add url
     private val retroinstance: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(URL)

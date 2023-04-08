@@ -5,17 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:backgroundTint="@color/card_background">
+    android:layout_width="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/card_background"
         tools:context=".dashboard.ui.notifications.ProfileFragment">
-
 
         <TextView
             android:id="@+id/textView"

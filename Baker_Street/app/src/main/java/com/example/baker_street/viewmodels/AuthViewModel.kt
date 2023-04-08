@@ -13,13 +13,11 @@ class AuthViewModel : ViewModel(){
         repo = AuthRepo().getInstance()
         message = MutableLiveData<String>()
     }
-
     fun getMessageObserver(): MutableLiveData<String>? {
         message = repo?.getMessage()
         return message
     }
-
-    fun signInUser(userModel: UserModel,jwtToken : String) {
-        repo?.signIn(userModel, jwtToken)
+    fun signUpUser(userModel: UserModel,jwtToken : String) {
+        repo?.signUp(userModel, jwtToken)
     }
 }
