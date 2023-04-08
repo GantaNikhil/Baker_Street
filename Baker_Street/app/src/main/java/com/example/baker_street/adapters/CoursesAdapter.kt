@@ -28,8 +28,8 @@ class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.binding.courseName.text = data[position].coursename
-        holder.binding.courseProf.text = data[position].profname
+        holder.binding.courseName.text = data[position].name
+        holder.binding.courseProf.text = data[position].profid
     }
 
     override fun getItemCount(): Int {

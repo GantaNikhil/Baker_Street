@@ -4,6 +4,7 @@ import com.example.baker_street.models.CoursesModel
 import com.example.baker_street.models.UserModel
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -19,12 +20,17 @@ interface Service {
         @Body userModel: UserModel
     ): Call<UserModel>
 
-    @POST("auth/signin")
+    @POST("auth/login")
     fun signIn(
         @Body userModel: UserModel
     ): Call<UserModel>
 
-    @POST("courses")
+    @POST("auth/resetpass")
+    fun resetPass(
+        @Body userModel: UserModel
+    ): Call<UserModel>
+
+    @GET("courses/mycourses")
     fun getCourses(
         @Header("Authorization") jwtToken :String
     ): Call<CoursesModel>

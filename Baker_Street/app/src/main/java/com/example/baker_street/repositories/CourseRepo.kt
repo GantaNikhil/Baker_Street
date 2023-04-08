@@ -22,24 +22,28 @@ class CourseRepo {
     }
 
     fun getCourses(jwtToken: String) {
+        Log.d("qwertyuiop",jwtToken)
         GlobalScope.launch {
-            RetroInstance.api.getCourses(jwtToken)
+            RetroInstance.api.getCourses("Bearer $jwtToken")
                 .enqueue(object : Callback<CoursesModel> {
                     override fun onResponse(
                         call: Call<CoursesModel>,
                         response: Response<CoursesModel>
                     ) {
-                        coursesModel.postValue(response.body())
                         try {
+                            coursesModel.postValue(response.body())
+                            Log.d("qwerty1",response.toString())
                             message.postValue("OKCourses")
                         } catch (E: Exception) {
+                            coursesModel.postValue(response.body())
+                            Log.d("qwerty2",E.toString())
                             message.postValue("ErrorCourses")
                         }
                     }
 
                     override fun onFailure(call: Call<CoursesModel>, t: Throwable) {
                         message.postValue(t.toString())
-                        Log.d("NIK", t.toString())
+                        Log.d("qwerty3", t.toString())
                     }
                 })
         }

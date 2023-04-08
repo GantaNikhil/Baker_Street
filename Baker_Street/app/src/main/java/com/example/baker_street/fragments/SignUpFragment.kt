@@ -1,7 +1,9 @@
 package com.example.baker_street.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,26 +44,32 @@ class SignUpFragment : Fragment() {
 
         signupviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
 
-        if(stuOrProf == "PROFESSOR") admno.visibility = View.GONE
-        userModel = if (stuOrProf == "STUDENT")
-            UserModel(
-                name = name.text.toString(),
-                email = email.text.toString(),
-                admno = admno.text.toString(),
-                password = password.text.toString()
-            )
-        else
-            UserModel(
-                name = name.text.toString(),
-                email = email.text.toString(),
-                password = password.text.toString()
-            )
+        if (stuOrProf == "PROFESSOR") admno.visibility = View.GONE
+        if (stuOrProf == "STUDENT") name.visibility = View.GONE
+
+//        Log.d("UserMOdel enti4",userModel.toString())
+
         binding.btnSignUp.setOnClickListener {
-            if (password.toString() != cnfpassword.toString()) {
+            userModel = if (stuOrProf == "STUDENT") {
+                UserModel(
+                    email = email.text.toString(),
+                    admno = admno.text.toString(),
+                    password = password.text.toString()
+                )
+            } else {
+                UserModel(
+                    name = name.text.toString(),
+                    email = email.text.toString(),
+                    password = password.text.toString()
+                )
+            }
+//            Log.d("chandra",userModel.toString())
+            if (password.text.toString() != cnfpassword.text.toString()) {
                 Toast.makeText(context, "Passwords are different", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            signupviewmodel.signUpStu(userModel)
+            if (stuOrProf == "STUDENT") signupviewmodel.signUpStu(userModel)
+            else signupviewmodel.signUpProf(userModel)
         }
         initObservers()
 
@@ -75,18 +83,47 @@ class SignUpFragment : Fragment() {
 
     private fun initObservers() {
         signupviewmodel.getMessageObserver()?.observe(viewLifecycleOwner) { it ->
-            if (it == "OK2") {
+            if (it == "OK1") {
                 signupviewmodel.getSignUpStuObserver()?.observe(viewLifecycleOwner) {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    val sharedPreferences =
+                        context?.getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences?.edit()
+                    Log.d("okokok",it.toString())
+                    editor?.putString("jwtToken", it.jwtToken)
+                    editor?.apply()
+
+                    Log.d("NIK1", it.toString())
+                    Toast.makeText(context, it.message.toString(), Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
                     startActivity(intent)
                 }
 
-            } else if (it == "Error2") {
+            } else if (it == "OK2") {
+                signupviewmodel.getSignUpProfObserver()?.observe(viewLifecycleOwner) {
+                    val sharedPreferences =
+                        context?.getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences?.edit()
+                    editor?.putString("jwtToken", it.jwtToken)
+                    editor?.apply()
+
+                    Log.d("NIK1", it.toString())
+                    Toast.makeText(context, it.message.toString(), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                }
+
+            } else if (it == "Error1") {
                 signupviewmodel.getSignUpStuObserver()?.observe(viewLifecycleOwner) {
+                    Log.d("NIK2", it.message.toString())
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
+            } else if (it == "Error2") {
+                signupviewmodel.getSignUpProfObserver()?.observe(viewLifecycleOwner) {
+                    Log.d("NIK2", it.message.toString())
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             } else {
+                Log.d("NIK3", it.toString())
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         }

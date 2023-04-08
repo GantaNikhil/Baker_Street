@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNav = findViewById(R.id.bottom_nav)
+        loadFragment(CoursesFragment())
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {

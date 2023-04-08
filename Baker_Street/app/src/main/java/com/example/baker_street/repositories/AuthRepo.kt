@@ -24,6 +24,7 @@ class AuthRepo {
     }
 
     fun signUpStu(userModel: UserModel) {
+        Log.d("UserMOdel enti",userModel.toString())
         GlobalScope.launch {
             RetroInstance.api.signUpStu(userModel)
                 .enqueue(object : Callback<UserModel> {
@@ -31,17 +32,20 @@ class AuthRepo {
                         call: Call<UserModel>,
                         response: Response<UserModel>
                     ) {
-                        signUpStuModel.postValue(response.body())
                         try {
+                            Log.d("abhilash",response.body()?.message.toString())
+                            signUpStuModel.postValue(response.body())
                             message.postValue("OK1")
                         } catch (E: Exception) {
+                            Log.d("abhilash2",E.toString())
+                            signUpStuModel.postValue(response.body())
                             message.postValue("Error1")
                         }
                     }
 
                     override fun onFailure(call: Call<UserModel>, t: Throwable) {
                         message.postValue(t.toString())
-                        Log.d("NIK", t.toString())
+                        Log.d("abhilash3", t.toString())
                     }
                 })
         }
@@ -55,23 +59,27 @@ class AuthRepo {
                         call: Call<UserModel>,
                         response: Response<UserModel>
                     ) {
-                        signUpProfModel.postValue(response.body())
                         try {
+                            signUpProfModel.postValue(response.body())
                             message.postValue("OK2")
+                            Log.d("Chandra4",response.body().toString())
                         } catch (E: Exception) {
+                            signUpProfModel.postValue(response.body())
                             message.postValue("Error2")
+                            Log.d("Chandra2",E.toString())
                         }
                     }
 
                     override fun onFailure(call: Call<UserModel>, t: Throwable) {
                         message.postValue(t.toString())
-                        Log.d("NIK", t.toString())
+                        Log.d("Chandra3", t.toString())
                     }
                 })
         }
     }
 
     fun signIn(userModel: UserModel) {
+        Log.d("JIO",userModel.toString())
         GlobalScope.launch {
             RetroInstance.api.signIn(userModel)
                 .enqueue(object : Callback<UserModel> {
@@ -79,17 +87,20 @@ class AuthRepo {
                         call: Call<UserModel>,
                         response: Response<UserModel>
                     ) {
-                        signInModel.postValue(response.body())
                         try {
+                            signInModel.postValue(response.body())
+                            Log.d("Roop",response.body().toString())
                             message.postValue("OK3")
                         } catch (E: Exception) {
+                            Log.d("Roop2",E.toString())
+                            signInModel.postValue(response.body())
                             message.postValue("Error3")
                         }
                     }
 
                     override fun onFailure(call: Call<UserModel>, t: Throwable) {
                         message.postValue(t.toString())
-                        Log.d("NIK", t.toString())
+                        Log.d("Roop3", t.toString())
                     }
                 })
         }

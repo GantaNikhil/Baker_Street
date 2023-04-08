@@ -1,16 +1,14 @@
 package com.example.baker_street.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.baker_street.R
 import com.example.baker_street.databinding.ActivitySigninBinding
-import com.example.baker_street.databinding.ActivitySignupBinding
 import com.example.baker_street.models.UserModel
 import com.example.baker_street.viewmodels.AuthViewModel
 
@@ -34,7 +32,12 @@ class SignInActivity : AppCompatActivity() {
         password = binding.password
 
         binding.btnLogin.setOnClickListener {
-            signinviewmodel.signIn(UserModel(email.text.toString(),password.text.toString()))
+            signinviewmodel.signIn(
+                UserModel(
+                    email = email.text.toString(),
+                    password = password.text.toString()
+                )
+            )
         }
 
         initObservers()
@@ -51,26 +54,31 @@ class SignInActivity : AppCompatActivity() {
             finish()
 
         }
-
-
     }
 
     private fun initObservers() {
         signinviewmodel.getMessageObserver()?.observe(this) { it ->
-            if(it == "OK3") {
-                signinviewmodel.getSignUpStuObserver()?.observe(this) {
-                    Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@SignInActivity,MainActivity::class.java)
+            if (it == "OK3") {
+                signinviewmodel.getSignInObserver()?.observe(this) {
+                    val sharedPreferences = getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences?.edit()
+                    editor?.putString("jwtToken", it.jwtToken)
+                    editor?.apply()
+                    Log.d("Vishnu", it.toString())
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@SignInActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
 
-            } else if(it == "Error3") {
-                signinviewmodel.getSignUpStuObserver()?.observe(this) {
+            } else if (it == "Error3") {
+                Log.d("Vishnu2", it.toString())
+                signinviewmodel.getSignInObserver()?.observe(this) {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+                Log.d("Vishnu3", it.toString())
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         }
     }

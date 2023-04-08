@@ -56,7 +56,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@color/black" />
+                    android:src="@drawable/icon_profile" />
 
             </com.google.android.material.card.MaterialCardView>
 
