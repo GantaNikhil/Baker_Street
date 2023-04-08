@@ -21,7 +21,9 @@
         android:layout_height="50sp"
         android:layout_marginBottom="0dp"
         app:layout_constraintVertical_bias="1"
+        app:itemIconTint="@color/black"
         android:background="@color/yellow"
+        app:itemTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
@@ -32,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/yellow"
-        android:titleTextColor="@color/white"
+        app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

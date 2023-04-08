@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    supportActionBar?.setTitle("Courses")
+                    supportActionBar?.title = "Courses"
                     loadFragment(CoursesFragment())
                     true
                 }
                 R.id.navigation_profile -> {
-                    supportActionBar?.setTitle("Profile")
+                    supportActionBar?.title = "Profile"
                     loadFragment(ProfileFragment())
                     true
                 }
