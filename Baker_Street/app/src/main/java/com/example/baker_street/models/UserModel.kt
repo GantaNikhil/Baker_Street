@@ -2,15 +2,17 @@ package com.example.baker_street.models
 
 data class UserModel(
 
-    var username: String? = null,
+    val name: String? = null,
 
-    var email: String? = null,
+    val email: String? = null,
 
-    var admNo: String? = null,
+    val admno: String? = null,
 
-    var password: String? = null,
+    val admNo: String? = null,
 
-    var jwtToken: String? = null,
+    val password: String? = null,
 
-    var status: String ? =null
+    val jwtToken: String? = null,
+
+    val message: String? = null,
 )
