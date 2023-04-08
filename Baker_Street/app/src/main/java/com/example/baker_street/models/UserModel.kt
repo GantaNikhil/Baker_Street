@@ -21,5 +21,8 @@ data class UserModel(
 
     @SerializedName("message")
     val message: String? = null,
+
+    @SerializedName("role")
+    val role: String? = null,
 )
 

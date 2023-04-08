@@ -26,7 +26,7 @@ interface Service {
         @Body userModel: UserModel
     ): Call<UserModel>
 
-    @GET("courses/mycourses")
+    @GET("courses/")
     fun getCourses(
         @Header("Authorization") jwtToken: String
     ): Call<CoursesModel>
