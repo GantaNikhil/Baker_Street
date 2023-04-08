@@ -1,12 +1,10 @@
 package com.example.baker_street
 
+import com.example.baker_street.models.AnnouncementsModel
 import com.example.baker_street.models.CoursesModel
 import com.example.baker_street.models.UserModel
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Service {
 
@@ -32,6 +30,50 @@ interface Service {
 
     @GET("courses/mycourses")
     fun getCourses(
-        @Header("Authorization") jwtToken :String
+        @Header("Authorization") jwtToken: String
     ): Call<CoursesModel>
+
+    @GET("courses/announcements/{courseid}")
+    fun getAnnouncements(
+        @Header("Authorization") jwtToken: String,
+        @Path("courseid") courseid: String
+    ): Call<AnnouncementsModel>
+
+    @GET("courses/files/comments/{sourceid}/{sourcetype}")
+    fun getComments(
+        @Header("Authorization") jwtToken: String,
+        @Path("sourceid") sourceid: Any,
+        @Path("sourcetype") sourcetype: String
+    )
+
+    @GET("courses/materials/{courseid}")
+    fun getMaterials(
+        @Header("Authorization") jwtToken: String,
+        @Path("courseid") courseid: Any
+    )
+    @POST("courses/materials/{courseid}")
+    fun getMaterials(
+        @Header("Authorization") jwtToken: String,
+        @Path("courseid") courseid: String
+    )
+
+    @GET("courses/assignments/{courseid}")
+    fun getAssignments(
+        @Header("Authorization") jwtToken: String,
+        @Path("courseid") courseid: String,
+    )
+
+    @GET("courses/assignments/submissions/{assignmentid}")
+    fun getSubmissions(
+        @Header("Authorization") jwtToken: String,
+        @Path("courseid") courseid: String,
+        @Path("sourcetype") sourcetype: String
+    )
+    @POST("courses/assignments/submissions/grade")
+    fun setGradeAssignments(
+        @Header("Authorization") jwtToken: String,
+        @Path("courseid") courseid: String,
+        @Path("sourcetype") sourcetype: String
+    )
+
 }

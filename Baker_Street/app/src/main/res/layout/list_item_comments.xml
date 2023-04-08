@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/CardViewProfile"
         app:layout_constraintTop_toTopOf="@id/CardViewProfile"
-        tools:text="Nikhil" />
+        tools:text="Abbbb" />
 
     <TextView
         android:layout_width="match_parent"

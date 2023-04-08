@@ -5,6 +5,8 @@ import java.util.Objects
 
 data class CourseModel(
 
+    val _id: Any? = null,
+
     val code: String? = null,
 
     val name: String? = null,

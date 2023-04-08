@@ -10,6 +10,7 @@ class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.MyViewHolder>() {
 
     var data = ArrayList<CourseModel>()
 
+    private var onCourseClickListener : OnCourseClickListener ?= null
     inner class MyViewHolder(val binding: ListItemCourseBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -19,6 +20,9 @@ class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.MyViewHolder>() {
             this.data.addAll(courseModel)
         }
         notifyDataSetChanged()
+    }
+    fun setOnCourseListener (onCourseClickListener: OnCourseClickListener){
+        this.onCourseClickListener = onCourseClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -30,6 +34,9 @@ class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.courseName.text = data[position].name
         holder.binding.courseProf.text = data[position].profid
+        holder.binding.root.setOnClickListener {
+            onCourseClickListener?.onCourseClick(position)
+        }
     }
 
     override fun getItemCount(): Int {

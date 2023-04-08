@@ -1,26 +1,29 @@
 package com.example.baker_street.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.baker_street.activities.ClassroomActivity
 import com.example.baker_street.adapters.CoursesAdapter
 import com.example.baker_street.databinding.FragmentCoursesBinding
 import com.example.baker_street.models.CourseModel
 import com.example.baker_street.viewmodels.CourseViewModel
+import java.io.Serializable
 
 class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
     CoursesAdapter.OnCourseClickListener {
     private lateinit var binding: FragmentCoursesBinding
     private lateinit var adapter: CoursesAdapter
     private lateinit var viewModel: CourseViewModel
-    private lateinit var token :String
+    private lateinit var token: String
+    private var coursesList = ArrayList<CourseModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +37,10 @@ class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
         val sharedPreferences = context?.getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
         token = sharedPreferences?.getString("jwtToken", "").toString()
         viewModel.getCourses(token)
+        adapter = CoursesAdapter()
+        adapter.setOnCourseListener(this)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.adapter = adapter
         initObservers()
         return binding.root
     }
@@ -45,17 +52,11 @@ class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
                 viewModel.getCoursesObserver()?.observe(viewLifecycleOwner) {
                     binding.swipeRefresh.isRefreshing = false
                     if (it == null) {
-                        adapter = CoursesAdapter()
                         adapter.setList(ArrayList())
-                        binding.recyclerView.adapter = adapter
-                    }
-                    else
-                    {
+                    } else {
                         Log.d("sai", it.toString())
-                        val coursesList: ArrayList<CourseModel>? = it.courses
-                        adapter = CoursesAdapter()
+                        coursesList = it.courses!!
                         adapter.setList(coursesList)
-                        binding.recyclerView.adapter = adapter
                     }
                 }
             }
@@ -67,6 +68,8 @@ class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
     }
 
     override fun onCourseClick(pos: Int) {
-
+        val intent = Intent(context, ClassroomActivity::class.java)
+        intent.putExtra("courseid", coursesList[pos]._id as Serializable)
+        startActivity(intent)
     }
 }
