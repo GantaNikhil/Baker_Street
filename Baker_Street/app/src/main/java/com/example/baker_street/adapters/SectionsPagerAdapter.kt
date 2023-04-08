@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.baker_street.R
 import com.example.baker_street.fragments.SignUpFragment
 
 class SectionsPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
@@ -15,7 +14,7 @@ class SectionsPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycl
 
     override fun createFragment(position: Int): Fragment {
         val fragment: Fragment = if (position == 0) {
-            SignUpFragment.newInstance("STUDENTS")
+            SignUpFragment.newInstance("STUDENT")
         } else {
             SignUpFragment.newInstance("PROFESSOR")
         }

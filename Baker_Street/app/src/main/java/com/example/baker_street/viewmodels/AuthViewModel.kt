@@ -15,6 +15,9 @@ class AuthViewModel : ViewModel(){
     init {
         repo = AuthRepo().getInstance()
         message = MutableLiveData<String>()
+        signUpStu = MutableLiveData<UserModel>()
+        signUpProf = MutableLiveData<UserModel>()
+        signIn = MutableLiveData<UserModel>()
     }
     fun signUpStu(userModel: UserModel) {
         repo?.signUpStu(userModel)
@@ -26,19 +29,19 @@ class AuthViewModel : ViewModel(){
         repo?.signIn(userModel)
     }
     fun getMessageObserver(): MutableLiveData<String>? {
-        message = repo?.getMessage()
+        message = repo?.getMessageObserver()
         return message
     }
     fun getSignUpStuObserver(): MutableLiveData<UserModel>? {
-        signUpStu = repo?.getSignUpStu()
+        signUpStu = repo?.getSignUpStuObserver()
         return signUpStu
     }
     fun getSignUpProfObserver(): MutableLiveData<UserModel>? {
-        signUpProf = repo?.getSignUpProf()
+        signUpProf = repo?.getSignUpProfObserver()
         return signUpProf
     }
     fun getSignInObserver(): MutableLiveData<UserModel>? {
-        signIn = repo?.getSignIn()
+        signIn = repo?.getSignInObserver()
         return signIn
     }
 }

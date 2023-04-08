@@ -42,7 +42,8 @@ class SignUpFragment : Fragment() {
 
         signupviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
 
-        userModel = if (stuOrProf == "STUDENTS")
+        if(stuOrProf == "PROFESSOR") admno.visibility = View.GONE
+        userModel = if (stuOrProf == "STUDENT")
             UserModel(
                 name = name.text.toString(),
                 email = email.text.toString(),
