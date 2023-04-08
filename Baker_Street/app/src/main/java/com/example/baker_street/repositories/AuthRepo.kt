@@ -95,16 +95,16 @@ class AuthRepo {
         }
     }
 
-    fun getMessage(): MutableLiveData<String> {
+    fun getMessageObserver(): MutableLiveData<String> {
         return message
     }
-    fun getSignUpStu(): MutableLiveData<UserModel> {
+    fun getSignUpStuObserver(): MutableLiveData<UserModel> {
         return signUpStuModel
     }
-    fun getSignUpProf(): MutableLiveData<UserModel> {
+    fun getSignUpProfObserver(): MutableLiveData<UserModel> {
         return signUpProfModel
     }
-    fun getSignIn(): MutableLiveData<UserModel> {
+    fun getSignInObserver(): MutableLiveData<UserModel> {
         return signInModel
     }
 }

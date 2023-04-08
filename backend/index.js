@@ -42,14 +42,11 @@ app.use((err,req,res,next)=>{
 
 //undefined route
 app.all('*',(req,res)=>{
-    res.status(404).json({message:'Invalid Endpoint'})
+    return res.status(404).json({message:'Invalid Endpoint'})
 })
 
 connectTodb()
 .then(()=>{
-    console.log("connected to mongodb");
-    app.listen(PORT,()=>{
-        console.log("listening")
-    })
+    app.listen(PORT)
 })
 module.exports=app
