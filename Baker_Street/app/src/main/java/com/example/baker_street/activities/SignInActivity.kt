@@ -2,6 +2,7 @@ package com.example.baker_street.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +21,14 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var binding: ActivitySigninBinding
     private lateinit var signinviewmodel: AuthViewModel
+    private val SPLASH_TIME_OUT = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
         signinviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
+
 
         email = binding.email
         password = binding.password
@@ -46,7 +49,10 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             finish()
+
         }
+
+
     }
 
     private fun initObservers() {
