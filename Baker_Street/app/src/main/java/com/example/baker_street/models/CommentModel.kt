@@ -9,5 +9,5 @@ data class CommentModel(
 )
 
 data class CommentsModel(
-    val comments: ArrayList<CommentModel>
+    val comments: ArrayList<CommentModel>?=null
 )

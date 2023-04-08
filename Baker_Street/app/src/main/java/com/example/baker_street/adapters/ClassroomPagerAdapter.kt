@@ -19,8 +19,8 @@ class ClassroomPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
         val course_id = this.courseid
         val fragment: Fragment = when (position) {
             0 -> StreamFragment(course_id)
-            1 -> ClassMaterialsFragment()
-            2 -> AssignmentsFragment()
+            1 -> ClassMaterialsFragment(course_id)
+            2 -> AssignmentsFragment(course_id)
             else -> PeopleFragment()
         }
         return fragment

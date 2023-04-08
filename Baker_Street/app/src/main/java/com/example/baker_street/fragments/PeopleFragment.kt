@@ -20,6 +20,7 @@ class PeopleFragment : Fragment() {
         binding = FragmentPeopleBinding.inflate(layoutInflater)
 //        viewModel = ViewModelProvider(viewLifecycleOwner)[ClassroomViewModel::class.java]
         initObservers()
+        adapter = PeopleFragmentAdapter()
         binding.revPeople.adapter = adapter
 
         return binding.root

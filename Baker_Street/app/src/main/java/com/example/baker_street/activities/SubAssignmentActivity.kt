@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.baker_street.adapters.CommentsAdapter
 import com.example.baker_street.databinding.SubItemAnnouncementsBinding
+import com.example.baker_street.databinding.SubItemAssignmentsBinding
 import com.example.baker_street.models.AnnouncementModel
+import com.example.baker_street.models.AssignmentModel
 import com.example.baker_street.models.CommentModel
 import com.example.baker_street.viewmodels.CommentViewModel
 
-class SubAnnouncementActivity : AppCompatActivity() {
+class SubAssignmentActivity : AppCompatActivity() {
 
-    private lateinit var binding: SubItemAnnouncementsBinding
+    private lateinit var binding: SubItemAssignmentsBinding
     private lateinit var viewModel: CommentViewModel
     private lateinit var adapter: CommentsAdapter
     private lateinit var token: String
@@ -21,13 +23,13 @@ class SubAnnouncementActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = SubItemAnnouncementsBinding.inflate(layoutInflater)
+        binding = SubItemAssignmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val announcement = intent.getSerializableExtra("Announcement") as AnnouncementModel
+        val assignment = intent.getSerializableExtra("Assignment") as AssignmentModel
         viewModel = ViewModelProvider(this)[CommentViewModel::class.java]
-        binding.announcement.text = announcement.description
-        binding.profName.text = announcement.courseid
+        binding.announcement.text = assignment.text
+        binding.profName.text = assignment.courseid
 
         val sharedPreferences = getSharedPreferences("Baker_Street", Context.MODE_PRIVATE)
         token = sharedPreferences?.getString("jwtToken", "").toString()
@@ -36,7 +38,7 @@ class SubAnnouncementActivity : AppCompatActivity() {
         adapter = CommentsAdapter()
         binding.revComments.adapter = adapter
         //setList
-        announcement._id?.let { viewModel.getComments(token, it, "announcements") }
+        assignment._id?.let { viewModel.getComments(token, it, "assignments") }
         initObservers()
     }
 

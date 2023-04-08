@@ -1,9 +1,6 @@
 package com.example.baker_street
 
-import com.example.baker_street.models.AnnouncementsModel
-import com.example.baker_street.models.CommentsModel
-import com.example.baker_street.models.CoursesModel
-import com.example.baker_street.models.UserModel
+import com.example.baker_street.models.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -45,15 +42,16 @@ interface Service {
         @Header("Authorization") jwtToken: String,
         @Path("sourceid") sourceid: Any,
         @Path("sourcetype") sourcetype: String
-    ) :Call<CommentsModel>
+    ): Call<CommentsModel>
 
     @GET("courses/materials/{courseid}")
     fun getMaterials(
         @Header("Authorization") jwtToken: String,
         @Path("courseid") courseid: Any
-    )
+    ): Call<MaterialsModel>
+
     @POST("courses/materials/{courseid}")
-    fun getMaterials(
+    fun setMaterials(
         @Header("Authorization") jwtToken: String,
         @Path("courseid") courseid: String
     )
@@ -62,7 +60,7 @@ interface Service {
     fun getAssignments(
         @Header("Authorization") jwtToken: String,
         @Path("courseid") courseid: String,
-    )
+    ) :Call<AssignmentsModel>
 
     @GET("courses/assignments/submissions/{assignmentid}")
     fun getSubmissions(
@@ -70,6 +68,7 @@ interface Service {
         @Path("courseid") courseid: String,
         @Path("sourcetype") sourcetype: String
     )
+
     @POST("courses/assignments/submissions/grade")
     fun setGradeAssignments(
         @Header("Authorization") jwtToken: String,

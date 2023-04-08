@@ -4,16 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.baker_street.databinding.ListItemAnnouncementsBinding
-import com.example.baker_street.databinding.ListItemCourseBinding
 import com.example.baker_street.models.AnnouncementModel
-import com.example.baker_street.models.CourseModel
 
-class StreamFragmentAdapter: RecyclerView.Adapter<StreamFragmentAdapter.MyViewHolder>() {
+class StreamFragmentAdapter : RecyclerView.Adapter<StreamFragmentAdapter.MyViewHolder>() {
 
     var data = ArrayList<AnnouncementModel>()
 
-    private var onAnnouncementClickListener : OnAnnouncementClickListener ?= null
-    inner class MyViewHolder(val binding: ListItemAnnouncementsBinding ) :
+    private var onAnnouncementClickListener: OnAnnouncementClickListener? = null
+
+    inner class MyViewHolder(val binding: ListItemAnnouncementsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     fun setList(announcementModel: ArrayList<AnnouncementModel>?) {
@@ -23,7 +22,8 @@ class StreamFragmentAdapter: RecyclerView.Adapter<StreamFragmentAdapter.MyViewHo
         }
         notifyDataSetChanged()
     }
-    fun setOnAnnouncementListener (onAnnouncementClickListener: OnAnnouncementClickListener){
+
+    fun setOnAnnouncementListener(onAnnouncementClickListener: OnAnnouncementClickListener) {
         this.onAnnouncementClickListener = onAnnouncementClickListener
     }
 
