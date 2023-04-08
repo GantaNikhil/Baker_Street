@@ -8,9 +8,18 @@ import retrofit2.http.POST
 
 interface Service {
 
-    @POST("auth/signup")
-    fun signUp(
-        @Body userModel: UserModel,
+    @POST("auth/signup/students")
+    fun signUpStu(
+        @Body userModel: UserModel
     ): Call<UserModel>
 
+    @POST("auth/signup/professors")
+    fun signUpProf(
+        @Body userModel: UserModel
+    ): Call<UserModel>
+
+    @POST("auth/signin")
+    fun signIn(
+        @Body userModel: UserModel
+    ): Call<UserModel>
 }

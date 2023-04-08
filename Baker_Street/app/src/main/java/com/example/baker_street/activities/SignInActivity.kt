@@ -18,34 +18,54 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var email: EditText
     private lateinit var password: EditText
-    private lateinit var cnfpassword: EditText
-    private lateinit var binding:ActivitySigninBinding
+    private lateinit var binding: ActivitySigninBinding
+    private lateinit var signinviewmodel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val signinviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
+        signinviewmodel = ViewModelProvider(this)[AuthViewModel::class.java]
 
-        signinviewmodel.getMessageObserver()?.observe(this){
+        email = binding.email
+        password = binding.password
 
+        binding.btnLogin.setOnClickListener {
+            signinviewmodel.signIn(UserModel(email.text.toString(),password.text.toString()))
         }
 
-        binding.txtVForgotPassword.setOnClickListener{
-            val forgotPassword = Intent(this,ForgotPasswordActivity::class.java)
-            startActivity(forgotPassword)
+        initObservers()
+
+        binding.forgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
-        binding.txtVSignUp.setOnClickListener{
-            val toSignUp = Intent(this,SignUpActivity::class.java)
-            startActivity(toSignUp)
+        binding.goToSignup.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+            finish()
         }
-//        signup.setOnClickListener{
-//
-//        }
     }
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
+
+    private fun initObservers() {
+        signinviewmodel.getMessageObserver()?.observe(this) { it ->
+            if(it == "OK3") {
+                signinviewmodel.getSignUpStuObserver()?.observe(this) {
+                    Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@SignInActivity,MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+            } else if(it == "Error3") {
+                signinviewmodel.getSignUpStuObserver()?.observe(this) {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
