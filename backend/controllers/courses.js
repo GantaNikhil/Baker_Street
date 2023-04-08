@@ -196,4 +196,22 @@ const UpdateComments = async (req,res) =>{
             return res.status(200).json({message:"Comment Updated Successfully"});
 }
 
-module.exports={createCourse,UploadAnnouncement,DeleteAnnouncement,getCourses,deleteCourse,DeleteComments,uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment,Comments,getAllAssignments,getAllSubmissions,getAllMaterials,UpdateComments}
+const registerStudents= async (req,res)=>{
+    const courseid=new ObjectId(req.body.courseid)
+    const studentMails=req.body.mails
+    console.log(studentMails)
+    let userids=[]
+    for(mail of studentMails){
+        const studentObject = await _db.collection('students').findOne({email:mail});
+        const userid=studentObject.userid;
+        userids.push(userid);
+    }
+    await _db.collection('courses').updateOne({_id:courseid},{
+        $push:{ students: { $each: userids}}
+    },{upsert:true})
+    res.status(200).json({"message":"All the students are registered"})
+}
+
+module.exports={createCourse,UploadAnnouncement,DeleteAnnouncement,getCourses,deleteCourse,DeleteComments,
+    uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment,Comments,getAllAssignments,getAllSubmissions,
+    getAllMaterials,UpdateComments,registerStudents}

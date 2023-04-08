@@ -3,7 +3,7 @@ const {isLoggedin}=require('../middleware/isAuthenticated')
 const {isProf}=require('../middleware/isProfessor')
 const courseRouter=express.Router();
 const {wrapAsync}=require('../utils/asyncErrorHandler')
-const {createCourse,getCourses,deleteCourse,uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment, Comments, getAllMaterials, getAllSubmissions, DeleteComments, UpdateComments, UploadAnnouncement, DeleteAnnouncement}=require('../controllers/courses')
+const {createCourse,getCourses,deleteCourse,uploadMaterials,uploadAssignments,submitAssignments,gradeAssignment, Comments, getAllMaterials, getAllSubmissions, DeleteComments, UpdateComments, UploadAnnouncement, DeleteAnnouncement, registerStudents}=require('../controllers/courses')
 const {multerAttachmentFileUploader}=require('../utils/multerUploader');
 const { isStudent } = require('../middleware/isStudent');
 
@@ -32,8 +32,11 @@ courseRouter.post('/announcements',isLoggedin,isProf,wrapAsync(UploadAnnouncemen
 courseRouter.delete('/announcements',isLoggedin,isProf,wrapAsync(DeleteAnnouncement));
 
 // comments by both professor and students are handled
-courseRouter.post('/comments',isLoggedin,wrapAsync(Comments));
-courseRouter.put('/comments',isLoggedin,wrapAsync(UpdateComments));
-courseRouter.delete('/comments',isLoggedin,wrapAsync(DeleteComments));
+courseRouter.post('/files/comments',isLoggedin,wrapAsync(Comments));
+courseRouter.put('/files/comments',isLoggedin,wrapAsync(UpdateComments));
+courseRouter.delete('/files/comments',isLoggedin,wrapAsync(DeleteComments));
+
+//register students
+courseRouter.post('/register',isLoggedin,isProf,wrapAsync(registerStudents))
 
 module.exports={courseRouter}
