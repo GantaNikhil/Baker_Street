@@ -2,17 +2,20 @@ const jwt=require('jsonwebtoken')
 const dotenv=require('dotenv')
 dotenv.config();
 const key=process.env.SECRETKEY
-//this middleware is used to authorize users - to access,create posts
-const isLoggedin= (req,res,next)=>{
+
+
+const isStudent= (req,res,next)=>{
     let token=req.headers.authorization;
     try{
         if(token){
             token=token.split(' ')[1];
             const user=jwt.verify(token,key);
-            req.firebaseuserid=user.firebaseuserid;
-            req.email=user.email;
-            req.role=user.role
-            next();
+            if(req.role==="student"){
+                next()
+            }
+            else{
+                return res.status(501).json({message:"Unauthorized Action"});    
+            }
         }
         else{
             return res.status(501).json({message:"Unauthorized Action"});
@@ -24,4 +27,4 @@ const isLoggedin= (req,res,next)=>{
     }
 }
 
-module.exports={isLoggedin}
+module.exports={isStudent}

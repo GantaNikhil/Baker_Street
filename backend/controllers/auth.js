@@ -107,7 +107,8 @@ const login = async (req,res)=>{
             const userInfo=await signInWithEmailAndPassword(auth,email,password);
             const userId=userInfo.user.uid
             const stuObject=await _db.collection('students').findOne({userid:userId})
-            const profObject=await _db.collection('students').findOne({userid:userId})
+            const profObject=await _db.collection('professors').findOne({userid:userId})
+            let role;
             if(stuObject){
                 role="student"
             }
