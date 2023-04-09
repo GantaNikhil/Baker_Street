@@ -3,6 +3,7 @@ package com.example.baker_street.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.baker_street.R
 import com.example.baker_street.adapters.ClassroomPagerAdapter
 import com.example.baker_street.databinding.ActivityClassroomBinding
 import com.google.android.material.tabs.TabLayout
@@ -16,7 +17,7 @@ class ClassroomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityClassroomBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         courseid = intent.getSerializableExtra("courseid").toString()
 
         binding.tabLayout.addTab(

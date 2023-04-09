@@ -41,7 +41,11 @@ class StreamFragment(var courseid: String) : Fragment(),
 
         adapter.setOnAnnouncementListener(this)
 
-        initObservers()
+        try {
+            initObservers()
+        }catch (e:Exception){
+
+        }
 
         return binding.root
     }

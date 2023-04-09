@@ -42,7 +42,11 @@ class CoursesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,
         adapter.setOnCourseListener(this)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
-        initObservers()
+        try {
+            initObservers()
+        }catch (e:Exception){
+
+        }
         return binding.root
     }
 

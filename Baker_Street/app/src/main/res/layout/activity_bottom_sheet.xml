@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:circularflow_defaultRadius="10dp"
-    android:background="@color/card_background"
+    android:background="@color/yellow"
     android:minHeight="100dp"
     app:layout_constraintCircleRadius="12dp"
     tools:context=".activities.ProfCourseActivity">

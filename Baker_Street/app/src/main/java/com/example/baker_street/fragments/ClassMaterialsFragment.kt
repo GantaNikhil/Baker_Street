@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.baker_street.R
 import com.example.baker_street.activities.SubAnnouncementActivity
 import com.example.baker_street.adapters.ClassMaterialsFragmentAdapter
 import com.example.baker_street.adapters.StreamFragmentAdapter
@@ -24,6 +25,7 @@ class ClassMaterialsFragment(var courseid: String) : Fragment() {
     private lateinit var token: String
     private var materialsList = ArrayList<MaterialModel>()
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,8 +38,12 @@ class ClassMaterialsFragment(var courseid: String) : Fragment() {
         binding.revAnnouncements.setHasFixedSize(true)
         adapter = ClassMaterialsFragmentAdapter()
         binding.revAnnouncements.adapter = adapter
+        try {
+            initObservers()
+        }catch (e:Exception){
 
-        initObservers()
+        }
+
 
         return binding.root
     }
