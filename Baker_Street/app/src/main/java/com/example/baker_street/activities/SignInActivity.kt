@@ -82,4 +82,11 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
+
+
 }

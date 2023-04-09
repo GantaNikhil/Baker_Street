@@ -36,17 +36,9 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             startActivity(Intent(this, SignInActivity::class.java))
             finish()
-        }, 1000)
+        }, 800)
 
         circle.startAnimation(animation)
 
     }
 }
-
-//circle = findViewById<ImageView>(com.example.baker_street.R.id.circle)
-//val animation: Animation = AnimationUtils.loadAnimation(this, com.example.baker_street.R.anim.circle_animation)
-//circle.startAnimation(animation)
-//Handler().postDelayed({
-//    startActivity(Intent(this, SignInActivity::class.java))
-//    finish()
-//}, SPLASH_TIME_OUT.toLong())
