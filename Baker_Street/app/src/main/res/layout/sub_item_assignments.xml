@@ -101,7 +101,32 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/upload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/card_background"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintBottom_toTopOf="@id/send"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/uploadText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/icon_cloud"
+            android:drawablePadding="6dp"
+            android:text="Click here to upload" />
+
+    </androidx.cardview.widget.CardView>
+
     <ImageView
+        android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_send"
