@@ -10,5 +10,5 @@
 * Chat with peers and professors
 * Recieve notifications
 
-### Backend : Node.js, MongoDB, Firebase, and Express.
-### App : XML, Kotlin, MVVM, Retrofit, Corotines, Glide.
+### Backend : #### Node.js, MongoDB, Firebase, and Express.
+### App : #### XML, Kotlin, MVVM, Retrofit, Corotines, Glide.
